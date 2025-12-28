@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""
+Convert KiCad ERC/DRC JSON reports into JUnit XML
+
+Usage:
+    scripts/kicad2junit --input /path/to/report.json --output drc.xml
+    scripts/kicad2junit --input /path/to/report.json
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+import sys
+
+from junit_xml import TestCase, TestSuite
+
+SCHEMA_TO_REPORT = {
+    "drc.v1.json": "drc",
+    "erc.v1.json": "erc",
+}
+
+
+def load_report(path: Path) -> dict:
+    with path.open() as fh:
+        return json.load(fh)
+
+
+def format_items(items: list[dict]) -> str:
+    lines = []
+    for item in items:
+        desc = item.get("description", "<no description>")
+        pos = item.get("pos")
+        if pos and "x" in pos and "y" in pos:
+            desc += f" (x={pos['x']}, y={pos['y']})"
+        lines.append(desc)
+    return "\n".join(lines)
+
+
+def make_test_case(
+    report_type: str,
+    violation: dict,
+    index: int,
+    extra_classname: str | None = None,
+    project_name: str | None = None,
+) -> tuple[TestCase, bool]:
+    """
+    Returns (testcase, is_failure) tuple.
+    """
+    severity = violation.get("severity", "unknown")
+    violation_type = violation.get("type", "unknown")
+    description = violation.get("description", "")
+    items = violation.get("items", [])
+
+    name = f"{report_type}.{violation_type}.{index}"
+    classname = project_name or report_type
+    tc = TestCase(name=name, classname=classname)
+
+    message = description or violation_type
+    extra_context = format_items(items)
+    output = f"{message}"
+    if extra_context:
+        output += f"\n{extra_context}"
+
+    if severity.lower() == "warning":
+        tc.add_skipped_info(message=message, output=extra_context or None)
+        return tc, False
+
+    tc.add_failure_info(message=message, output=extra_context or None)
+    return tc, True
+
+
+def build_test_cases(report_type: str, data: dict, project_name: str | None) -> tuple[list[TestCase], bool]:
+    cases: list[TestCase] = []
+    has_failure = False
+
+    violations: list[tuple[dict, str | None]]
+    if report_type == "drc":
+        violations = [(v, None) for v in data.get("violations", [])]
+    else:
+        violations = []
+        for sheet in data.get("sheets", []):
+            for violation in sheet.get("violations", []):
+                violations.append((violation, sheet.get("path")))
+
+    if not violations:
+        tc = TestCase(name=f"{report_type}.no_violations", classname=project_name or report_type)
+        cases.append(tc)
+        return cases, False
+
+    for index, (violation, extra) in enumerate(violations, start=1):
+        tc, failure = make_test_case(report_type, violation, index, extra, project_name)
+        cases.append(tc)
+        has_failure = has_failure or failure
+
+    return cases, has_failure
+
+
+def infer_report_type(schema: str) -> str | None:
+    if not schema:
+        return None
+    return SCHEMA_TO_REPORT.get(Path(schema).name)
+
+
+def write_tests(output_path: Path, suites: list[TestSuite]) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8") as fh:
+        TestSuite.to_file(fh, suites, prettyprint=True)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Convert KiCad JSON reports to JUnit XML.")
+    parser.add_argument("--input", "-i", required=True, type=Path, help="JSON report path.")
+    parser.add_argument("--output", "-o", type=Path, help="JUnit XML output path (defaults to replacing `.json` with `.xml`).")
+    parser.add_argument(
+        "--suite-name",
+        default=None,
+        help="Optional name for the generated test suite.",
+    )
+    args = parser.parse_args()
+    data = load_report(args.input)
+    document_name = Path(data.get("source") or args.input.name).name
+    schema = data.get("$schema", "")
+    report_type = infer_report_type(schema)
+    if not report_type:
+        parser.error(f"Cannot determine report type from schema {schema!r}.")
+
+    cases, has_failure = build_test_cases(report_type, data, document_name)
+    suite = TestSuite(args.suite_name or f"{report_type}-checks", cases)
+    output_path = args.output or args.input.with_suffix(".xml")
+    write_tests(output_path, [suite])
+    return 1 if has_failure else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

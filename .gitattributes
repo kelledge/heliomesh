@@ -1,2 +1,4 @@
+*.step filter=lfs diff=lfs merge=lfs -text
+*.wrl filter=lfs diff=lfs merge=lfs -text
 lib/kicad/** filter=lfs diff=lfs merge=lfs -text
 lib/** filter=lfs diff=lfs merge=lfs -text

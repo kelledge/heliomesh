@@ -1,0 +1,19 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    working_dir: /workspace
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/workspace
+      - dev-cache:/root/.cache
+    environment:
+      HELIOMESH_BUILD_DIR: /workspace/build
+    command: /bin/bash
+
+volumes:
+  dev-cache:
+

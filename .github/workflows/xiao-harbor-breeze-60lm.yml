@@ -1,0 +1,70 @@
+name: xiao-harbor-breeze-60lm
+
+permissions:
+  contents: read
+  checks: write
+  statuses: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/xiao-harbor-breeze-60lm/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'projects/xiao-harbor-breeze-60lm/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      COMPOSE_PROJECT_NAME: heliomesh
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Dev Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          target: dev
+          load: true
+          tags: heliomesh_dev:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build Project Assets
+        run: docker compose run --rm dev make -C projects/xiao-harbor-breeze-60lm clean build
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          report_paths: build/xiao-harbor-breeze-60lm/reports/*.xml
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: xiao-harbor-breeze-60lm-reports
+          path: build/xiao-harbor-breeze-60lm/reports/**
+
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: xiao-harbor-breeze-60lm-documentation
+          path: build/xiao-harbor-breeze-60lm/documentation/**
+
+      - name: Upload JLCPCB
+        uses: actions/upload-artifact@v4
+        with:
+          name: xiao-harbor-breeze-60lm-jlcpcb
+          path: build/xiao-harbor-breeze-60lm/manufacture/jlcpcb/**

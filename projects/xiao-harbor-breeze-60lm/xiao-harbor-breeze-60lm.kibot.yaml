@@ -1,0 +1,879 @@
+kibot:
+  version: 1
+
+global:
+  dir: ../../build/xiao-harbor-breeze-60lm
+  environment:
+    symbols: /usr/share/kicad/symbols
+    footprints: /usr/share/kicad/footprints
+    models_3d: /usr/share/kicad/3dmodels
+    templates: /usr/share/kicad/templates
+  filters:
+      - number: 9
+
+preflight:
+  drc:
+    dir: reports
+    dont_stop: false
+    format: HTML,JSON
+  erc:
+    dir: reports
+    dont_stop: false
+    format: HTML,JSON
+
+groups:
+  - name: test
+    comment: Check-run outputs
+    preflights:
+      - drc
+      - erc
+  - name: doc
+    comment: Documentation outputs
+    outputs:
+      - pdf_sch_print
+      - pcb_svg
+      - export_3d
+      - ibom
+      - info
+  - name: fab
+    comment: Fabrication outputs
+    outputs:
+      - gerber
+      - excellon
+  - name: man
+    comment: Manufacture outputs
+    outputs:
+      - jlcpcb_position
+      - jlcpcb_bom
+      - jlcpcb_zip
+
+outputs:
+
+# 
+# Documentation
+#
+- name: 'pdf_sch_print'
+  comment: 'Schematic PDF export'
+  type: 'pdf_sch_print'
+  dir: +/documentation
+  options:
+    # [boolean=true] Generate with all hierarchical sheets
+    all_pages: true
+    # [boolean=false] Use the background color from the `color_theme` (KiCad 6)
+    background_color: false
+    # [string=''] Color theme used, this must exist in the KiCad config (KiCad 6)
+    color_theme: ''
+    # [string='KiCad Font'] Name for the default font. Only for KiCad 9 and newer
+    default_font: 'KiCad Font'
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [boolean=true] Include the frame and title block
+    frame: true
+    # [boolean=false] Generate a monochromatic output
+    monochrome: false
+    # [string='%f-%i%I%v.%x'] Filename for the output PDF (%i=schematic, %x=pdf). Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [string=''] Worksheet file (.kicad_wks) to use. Leave empty to use the one specified in the project.
+    # This option works only when you print the toplevel sheet of a project and the project
+    # file is available
+    sheet_reference_layout: ''
+    # [string=''] Text used to replace the sheet title. %VALUE expansions are allowed.
+    # If it starts with `+` the text is concatenated
+    title: ''
+    # [string=''] Board variant to apply.
+    # Not fitted components are crossed
+    variant: ''
+    
+- name: pcb_svg
+  comment: 'Board SVG export'
+  type: pcbdraw
+  dir: +/documentation
+  options:
+    # [boolean=true] The `show_components` list is added to the list of components indicated by the variant (fitted and not
+    # excluded).
+    # This is the old behavior, but isn't intuitive because the `show_components` meaning changes when a variant
+    # is used. In this mode you should avoid using `show_components` and variants.
+    # To get a more coherent behavior disable this option, and `none` will always be `none`.
+    # Also `all` will be what the variant says
+    add_to_variant: true
+    # [boolean=false] Render the bottom side of the board (default is top side)
+    bottom: false
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [number=300] [10,1200] Dots per inch (resolution) of the generated image
+    dpi: 300
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [string='svg'] [svg,png,jpg,bmp] Output format. Only used if no `output` is specified
+    format: 'svg'
+    # [list(string)=[]] List of components to highlight. Filter expansion is also allowed here,
+    # see `show_components`
+    highlight: []
+    # [list(string)] List of libraries
+    libs: ['KiCAD-base']
+    # [number|dict=0] Margin around the generated image [mm].
+    # Using a number the margin is the same in the four directions
+    margin:
+      # [number=0] Bottom margin [mm]
+      bottom: 0
+      # [number=0] Left margin [mm]
+      left: 0
+      # [number=0] Right margin [mm]
+      right: 0
+      # [number=0] Top margin [mm]
+      top: 0
+    # [boolean=false] Mirror the board
+    mirror: false
+    # [boolean=false] Do not make holes transparent
+    no_drillholes: false
+    # [number=0.15] [0,10] Width of the trace to draw the PCB border [mm].
+    # Note this also affects the drill holes
+    outline_width: 0.15
+    # [string='%f-%i%I%v.%x'] Name for the generated file. Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [boolean=false] Show placeholder for missing components
+    placeholder: false
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [string_dict|string='None'] (DEPRECATED) Replacements for PCB references using specified components
+    # (lib:component). Use `remap_components` instead
+    remap: 'None'
+    # [list(dict)=[]] Replacements for PCB references using specified components.
+    # Replaces `remap` with type check
+    remap_components:
+      # [string=''] Component to use (from `lib`)
+      - comp: 'LED-5MM_green'
+        # `component` is an alias for `comp`
+        # [string=''] Library to use
+        lib: 'LEDs'
+        # `library` is an alias for `lib`
+        # [string=''] Reference for the component to change
+        ref: 'D1'
+        # `reference` is an alias for `ref`
+    # [string|list(string)=''] {comma_sep} List of resistors to flip its bands
+    resistor_flip: ''
+    # [list(dict)=[]] List of resistors to be remapped. You can change the value of the resistors here
+    resistor_remap:
+      # [string=''] Reference for the resistor to change
+      - ref: 'R1'
+        # `reference` is an alias for `ref`
+        # [string=''] Value to use for `ref`
+        val: '10k'
+        # `value` is an alias for `val`
+    # [list(string)|string='none'] [none,all,*] List of components to draw, can be also a string for none or all.
+    # The default is none.
+    # There two ways of using this option, please consult the `add_to_variant` option.
+    # You can use `_kf(FILTER)` as an element in the list to get all the components that pass the filter.
+    # You can even use `_kf(FILTER1;FILTER2)` to concatenate filters
+    show_components: 'none'
+    # [boolean=true] Show the solder paste layers
+    show_solderpaste: true
+    # [string='kicad_edge'] [kicad_edge,kicad_all,svg_paths] Method used to detect the size of the resulting image.
+    # The `kicad_edge` method uses the size of the board as reported by KiCad,
+    # components that extend beyond the PCB limit will be cropped. You can manually
+    # adjust the margins to make them visible.
+    # The `kicad_all` method uses the whole size reported by KiCad. Usually includes extra space.
+    # The `svg_paths` uses all visible drawings in the image. To use this method you
+    # must install the `numpy` Python module (may not be available in docker images)
+    size_detection: 'kicad_edge'
+    # [string|dict={}] PCB style (colors). An internal name, the name of a JSON file or the style options
+    style:
+      # [string='#208b47'] Color for the board without copper (covered by solder mask)
+      board: '#208b47'
+      # [string='#cabb3e'] Color for the PCB core (not covered by solder mask)
+      clad: '#cabb3e'
+      # [string='#285e3a'] Color for the copper zones (covered by solder mask)
+      copper: '#285e3a'
+      # [boolean=false] Highlight over the component (not under)
+      highlight_on_top: false
+      # [number=1.5] [0,1000] How much the highlight extends around the component [mm]
+      highlight_padding: 1.5
+      # [string='stroke:none;fill:#ff0000;opacity:0.5;'] SVG code for the highlight style
+      highlight_style: 'stroke:none;fill:#ff0000;opacity:0.5;'
+      # [string='#000000'] Color for the outline
+      outline: '#000000'
+      # [string='#8b898c'] Color for the exposed pads (metal finish)
+      pads: '#8b898c'
+      # [string='#d5dce4'] Color for the silk screen
+      silk: '#d5dce4'
+      # [string='#bf2600'] Color for the V-CUTS
+      vcut: '#bf2600'
+    # [number=4] [3,6] Scale factor used to represent 1 mm in the SVG (KiCad 6).
+    # The value is how much zeros has the multiplier (1 mm = 10 power `svg_precision` units).
+    # Note that for an A4 paper Firefox 91 and Chrome 105 can't handle more than 5
+    svg_precision: 4
+    # [string=''] Board variant to apply
+    variant: ''
+    # [boolean=false] Render V-CUTS on the `vcuts_layer` layer
+    vcuts: false
+    # [string='Cmts.User'] Layer to render the V-CUTS, only used when `vcuts` is enabled.
+    # Note that any other content from this layer will be included
+    vcuts_layer: 'Cmts.User'
+    # [string='visible'] [visible,all,none] Using visible only the warnings about components in the visible side are generated
+    warnings: 'visible'
+
+- name: 'export_3d'
+  comment: '3D STEP export'
+  type: 'export_3d'
+  dir: +/documentation
+  options:
+    # [boolean=false] Only generate a board with no components
+    board_only: false
+    # [boolean=false] Cut via holes in board body even if conductor layers are not exported
+    cut_vias_in_body: false
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [boolean=true] Downloads missing 3D models from KiCad git.
+    # Only applies to models in KISYS3DMOD and KICAD6_3DMODEL_DIR.
+    # They are downloaded to a temporal directory and discarded.
+    # If you want to cache the downloaded files specify a directory using the
+    # KIBOT_3D_MODELS environment variable
+    download: true
+    # [boolean=true] In addition to try to download the 3D models from KiCad git also try to get
+    # them from LCSC database. In order to work you'll need to provide the LCSC
+    # part number. The field containing the LCSC part number is defined by the
+    # `field_lcsc_part` global variable
+    download_lcsc: false
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [boolean=false] Don't cut via holes in conductor layers
+    fill_all_vias: false
+    # [string='step'] [step,glb,stl,xao,brep] 3D format used.
+    # - STEP: ISO 10303-21 Clear Text Encoding of the Exchange Structure
+    # - GLB: Binary version of the glTF, Graphics Library Transmission Format or GL Transmission Format and formerly
+    # known as WebGL Transmissions Format or WebGL TF.
+    # - STL: 3D printer format, from stereolithography CAD software created by 3D Systems.
+    # - XAO: XAO (SALOME/Gmsh) format, used for FEM and simulations.
+    # - BRep: Part of Open CASCADE Technology (OCCT)
+    format: 'step'
+    # [boolean=false] Fuse overlapping geometry together
+    fuse_shapes: false
+    # [boolean=false] Export elements on inner copper layers
+    include_inner_copper: true
+    # [boolean=false] Export pads
+    include_pads: true
+    # [boolean=false] Export silkscreen graphics as a set of flat faces
+    include_silkscreen: true
+    # [boolean=false] Export soldermask layers as a set of flat faces
+    include_soldermask: true
+    # [boolean=false] Export tracks and vias
+    include_tracks: true
+    # [boolean=false] Export zones
+    include_zones: false
+    # [string='https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'] Base URL for the KiCad 3D models
+    kicad_3d_url: 'https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'
+    # [string=''] Text added to the end of the download URL.
+    # Can be used to pass variables to the GET request, i.e. ?VAR1=VAL1&VAR2=VAL2
+    kicad_3d_url_suffix: ''
+    # [number=-1] The minimum distance between points to treat them as separate ones (-1 is KiCad default: 0.01 mm).
+    # The units for this option are controlled by the `units` option
+    min_distance: -1
+    # [string=''] Only include copper items belonging to nets matching this wildcard
+    net_filter: ''
+    # [boolean=false] Exclude board body
+    no_board_body: false
+    # [boolean=false] Exclude 3D models for components
+    no_components: false
+    # [boolean=false] Do not optimize STEP file (enables writing parametric curves)
+    no_optimize_step: false
+    # [boolean=false] Used to exclude 3D models for components with 'virtual' attribute
+    no_virtual: false
+    # [string='grid'] [grid,drill,center,*] Determines the coordinates origin.
+    # Using `grid` the coordinates are the same as you have in the design sheet.
+    # The `drill` option uses the auxiliary reference defined by the user.
+    # Using `center` you'll get the center of the board as origin.
+    # You can define any other origin using the format 'X,Y', i.e. '3.2,-10'. Don't put units here.
+    # The units used here are the ones specified by the `units` option
+    origin: 'grid'
+    # [string='%f-%i%I%v.%x'] Name for the generated 3D file (%i='3D' %x='step/glb/stl/xao/brep'). Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [boolean=true] Substitute STEP or IGS models with the same name in place of VRML models
+    subst_models: true
+    # [string='millimeters'] [millimeters,inches,mils] Units used for the custom origin and `min_distance`. Affected by global options
+    units: 'millimeters'
+    # [string=''] Board variant to apply
+    variant: ''
+
+- name: 'ibom'
+  comment: 'Generates an interactive web page useful to identify the position of the components in the PCB.'
+  type: 'ibom'
+  dir: +/documentation
+  options:
+    # [string=''] List of comma separated blacklisted components or prefixes with *. E.g. 'X1,MH*'.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    blacklist: ''
+    # [boolean=false] Blacklist components with empty value.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    blacklist_empty_val: false
+    # [number=0] Board rotation in degrees (-180 to 180). Will be rounded to multiple of 5
+    board_rotation: 0
+    # [string='left-right'] [bom-only,left-right,top-bottom] Default BOM view
+    bom_view: 'left-right'
+    # [string='Sourced,Placed'] Comma separated list of checkbox columns
+    checkboxes: 'Sourced,Placed'
+    # [boolean=false] Default to dark mode
+    dark_mode: true
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant.
+    # Avoid using it in conjunction with IBoM native filtering options
+    dnf_filter: '_null'
+    # [string=''] Name of the extra field that indicates do not populate status.
+    # Components with this field not empty will be blacklisted.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    dnp_field: ''
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [string=''] Path to netlist or xml file. You can use '%F.xml' to avoid specifying the project name.
+    # Leave it blank for most uses, data will be extracted from the PCB
+    extra_data_file: ''
+    # [string=''] Comma separated list of extra fields to pull from netlist or xml file.
+    # Using 'X,Y' is a shortcut for `show_fields` and `group_fields` with values 'Value,Footprint,X,Y'
+    extra_fields: ''
+    # [string=''] Name to be used for the PCB/project (no file extension).
+    # This will affect the name iBoM displays in the generated HTML
+    forced_name: ''
+    # [string=''] Comma separated list of fields that components will be grouped by.
+    # Value and Footprint are used when nothing is specified
+    group_fields: ''
+    # [boolean=false] Hide components in the Fab layer that are marked as excluded by a variant.
+    # Affected by global options
+    hide_excluded: false
+    # [boolean=false] Hide footprint pads by default
+    hide_pads: false
+    # [boolean=false] Hide silkscreen by default
+    hide_silkscreen: false
+    # [boolean|string=false] [none,all,selected] Highlight pin1 by default
+    highlight_pin1: false
+    # [boolean=false] Include netlist information in output.
+    include_nets: false
+    # [boolean=false] Include track/zone information in output. F.Cu and B.Cu layers only
+    include_tracks: false
+    # [string='FB'] [F,FB,B] Default layer view
+    layer_view: 'FB'
+    # [string='ibom'] Output file name format supports substitutions:
+    # %f : original pcb file name without extension.
+    # %p : pcb/project title from pcb metadata.
+    # %c : company from pcb metadata.
+    # %r : revision from pcb metadata.
+    # %d : pcb date from metadata if available, file modification date otherwise.
+    # %D : bom generation date.
+    # %T : bom generation time.
+    # Extension .html will be added automatically.
+    # Note that this name is used only when output is ''
+    name_format: 'ibom'
+    # `netlist_file` is an alias for `extra_data_file`
+    # [boolean=false] Do not blacklist virtual components.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    no_blacklist_virtual: false
+    # [boolean=false] Disable compression of pcb data
+    no_compression: false
+    # [boolean=false] Do not redraw pcb on drag by default
+    no_redraw_on_drag: false
+    # [boolean=false] Normalize extra field name case. E.g. 'MPN' and 'mpn' will be considered the same field
+    normalize_field_case: false
+    # [boolean=false] Offset the back of the pcb by 180 degrees
+    offset_back_rotation: false
+    # [string='%f-%i%I%v.%x'] Filename for the output, use '' to use the IBoM filename (%i=ibom, %x=html). Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [boolean=false] Show fabrication layer by default
+    show_fabrication: false
+    # [string=''] Comma separated list of fields to show in the BOM.
+    # Value and Footprint are displayed when nothing is specified
+    show_fields: ''
+    # [string='C,R,L,D,U,Y,X,F,SW,A,~,HS,CNN,J,P,NT,MH'] Default sort order for components. Must contain '~' once
+    sort_order: 'C,R,L,D,U,Y,X,F,SW,A,~,HS,CNN,J,P,NT,MH'
+    # [string=''] Board variant to apply.
+    # Avoid using it in conjunction with IBoM native filtering options
+    variant: ''
+    # [string=''] Name of the extra field that stores board variant for component.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    variant_field: ''
+    # [string=''] List of board variants to exclude from the BOM.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    variants_blacklist: ''
+    # [string=''] List of board variants to include in the BOM.
+    # IBoM option, avoid using in conjunction with KiBot variants/filters
+    variants_whitelist: ''
+# Info:
+# It can be used to know more about the environment used to generate the files.
+# Please don't rely on the way things are reported, its content could change,
+# adding or removing information
+- name: 'info'
+  comment: 'Records information about the current run.'
+  type: 'info'
+  dir: +/documentation
+  options:
+    # [string='names'] [names,none,full] List environment variables.
+    # IMPORTANT: Don't use `full` unless you know you are not leaking sensitive information
+    environment: 'names'
+    # [string='%f-%i%I%v.%x'] Filename for the output (%i=info, %x=txt). Affected by global options
+    output: '%f-%i%I%v.%x'
+
+- name: 'render_3d'
+  comment: "3D render of PCB"
+  type: 'render_3d'
+  dir: +/documentation
+  options:
+    # [boolean=false] When enabled the image will be post-processed to remove the empty space around the image.
+    # In this mode the `background2` is changed to be the same as `background1`
+    auto_crop: false
+    # [string='#66667F'] First color for the background gradient
+    background1: '#66667F'
+    # [string='#CCCCE5'] Second color for the background gradient
+    background2: '#CCCCE5'
+    # [string='#332B16'] Color for the board without copper or solder mask
+    board: '#332B16'
+    # [boolean=true] Clip silkscreen at via annuli (KiCad 6+)
+    clip_silk_on_via_annulus: true
+    # [string='#8b898c'] Color for the copper
+    copper: '#8b898c'
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [boolean=true] Downloads missing 3D models from KiCad git.
+    # Only applies to models in KISYS3DMOD and KICAD6_3DMODEL_DIR.
+    # They are downloaded to a temporal directory and discarded.
+    # If you want to cache the downloaded files specify a directory using the
+    # KIBOT_3D_MODELS environment variable
+    download: true
+    # [boolean=true] In addition to try to download the 3D models from KiCad git also try to get
+    # them from LCSC database. In order to work you'll need to provide the LCSC
+    # part number. The field containing the LCSC part number is defined by the
+    # `field_lcsc_part` global variable
+    download_lcsc: true
+    # [boolean=false] Some versions of Image Magick (i.e. the one in Debian 11) needs two passes to crop.
+    # Enable it to force a double pass. It was the default in KiBot 1.7.0 and older
+    enable_crop_workaround: false
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [boolean=false] Tell KiCad to use the colors from the stackup. They are better than the unified KiBot colors.
+    # Needs KiCad 6 or newer
+    force_stackup_colors: false
+    # [number=720] Image height (aprox.)
+    height: 720
+    # [list(string)=[]] List of components to highlight. Ranges like *R5-R10* are supported
+    highlight: []
+    # [boolean=false] Highlight over the component (not under)
+    highlight_on_top: false
+    # [number=1.5] [0,1000] How much the highlight extends around the component [mm]
+    highlight_padding: 1.5
+    # [string='https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'] Base URL for the KiCad 3D models
+    kicad_3d_url: 'https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'
+    # [string=''] Text added to the end of the download URL.
+    # Can be used to pass variables to the GET request, i.e. ?VAR1=VAL1&VAR2=VAL2
+    kicad_3d_url_suffix: ''
+    # [number=0] Steps to move in the X axis, positive is to the right.
+    # Just like pressing the right arrow in the 3D viewer
+    move_x: 0
+    # [number=0] Steps to move in the Y axis, positive is up.
+    # Just like pressing the up arrow in the 3D viewer
+    move_y: 0
+    # [boolean=false] Used to exclude 3D models for surface mount components
+    no_smd: false
+    # [boolean=false] Used to exclude 3D models for through hole components
+    no_tht: false
+    # [boolean=false] Used to exclude 3D models for components with 'virtual' attribute
+    no_virtual: false
+    # [boolean=false] Enable the orthographic projection mode (top view looks flat)
+    orthographic: false
+    # [string='%f-%i%I%v.%x'] Name for the generated image file (%i='3D_$VIEW' %x='png'). Affected by global options
+    output: '%f-3D.%x'
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [boolean=false] Enable the ray tracing. Much better result, but slow, and you'll need to adjust `wait_rt`
+    ray_tracing: false
+    # [boolean=true] When disabled we use the colors of the layers used by the GUI. Needs KiCad 6 or 7.
+    # Is emulated on KiCad 8
+    realistic: true
+    # [number=0] Steps to rotate around the X axis, positive is clockwise.
+    # Each step is currently 10 degrees. Only for KiCad 6 or newer
+    rotate_x: 4
+    # [number=0] Steps to rotate around the Y axis, positive is clockwise.
+    # Each step is currently 10 degrees. Only for KiCad 6 or newer
+    rotate_y: 0
+    # [number=0] Steps to rotate around the Z axis, positive is clockwise.
+    # Each step is currently 10 degrees. Only for KiCad 6 or newer
+    rotate_z: 6
+    # [boolean=false] Show the content of F.Adhesive/B.Adhesive layers. KiCad 6 or newer
+    show_adhesive: false
+    # [boolean=true] Show the PCB core material. KiCad 6 or newer
+    show_board_body: true
+    # [boolean=false] Show the content of the User.Comments and User.Drawings layer for KiCad 5, 6 and 7.
+    # On KiCad 8 this option controls only the User.Comments and you have a separated option for the
+    # User.Drawings called `show_drawings`
+    # Note that KiCad 5/6/7 doesn't show it when `realistic` is enabled, but KiCad 8 does it.
+    # Also note that KiCad 5 ray tracer shows comments outside the PCB, but newer KiCad versions
+    # doesn't
+    show_comments: false
+    # [list(string)|string='all'] [none,all,*] List of components to draw, can be also a string for `none` or `all`.
+    # Ranges like *R5-R10* are supported.
+    # Unlike the `pcbdraw` output, the default is `all`
+    show_components: 'all'
+    # [boolean=false] Show the content of the User.Drawings layer. Only available for KiCad 8 and newer.
+    # Consult `show_comments` to learn when drawings are visible
+    show_drawings: false
+    # [boolean=false] Show the content of the Eco1.User/Eco2.User layers.
+    # For KiCad 8 `show_eco1` and `show_eco2` are available.
+    # Consult `show_comments` to learn when drawings are visible
+    show_eco: false
+    # [boolean=false] Show the content of the Eco1.User layer. KiCad 8 supports individual Eco layer options, for 6 and 7
+    # use the `show_eco` option.
+    # Consult `show_comments` to learn when drawings are visible
+    show_eco1: false
+    # [boolean=false] Show the content of the Eco1.User layer. KiCad 8 supports individual Eco layer options, for 6 and 7
+    # use the `show_eco` option.
+    # Consult `show_comments` to learn when drawings are visible
+    show_eco2: false
+    # [boolean=true] Show the silkscreen layers (KiCad 6+)
+    show_silkscreen: true
+    # [boolean=true] Show the solder mask layers (KiCad 6+)
+    show_soldermask: true
+    # [boolean=true] Show the solder paste layers (KiCad 6+)
+    show_solderpaste: true
+    # [boolean=true] Show filled areas in zones (KiCad 6+)
+    show_zones: true
+    # [string='#d5dce4'] Color for the silk screen
+    silk: '#d5dce4'
+    # [string='#208b47'] Color for the solder mask
+    solder_mask: '#208b47'
+    # [string='#808080'] Color for the solder paste
+    solder_paste: '#808080'
+    # [boolean=true] Clip silkscreen at solder mask edges (KiCad 6+)
+    subtract_mask_from_silk: true
+    # [boolean=false] When enabled the image will be post-processed to make the background transparent.
+    # In this mode the `background1` and `background2` colors are ignored
+    transparent_background: false
+    # [string='#00ff00'] Color used for the chroma key. Adjust it if some regions of the board becomes transparent
+    transparent_background_color: '#00ff00'
+    # [number=15] [0,100] Chroma key tolerance (percent). Bigger values will remove more pixels
+    transparent_background_fuzz: 15
+    # [string=''] Board variant to apply
+    variant: ''
+    # [string='top'] [top,bottom,front,rear,right,left,z,Z,y,Y,x,X] Point of view
+    view: 'top'
+    # `wait_ray_tracing` is an alias for `wait_render`
+    # [number=-600] How many seconds we must wait before capturing the render (ray tracing or normal).
+    # Lamentably KiCad can save an unfinished image. Enlarge it if your image looks partially rendered.
+    # Use negative values to enable the auto-detect using CPU load.
+    # In this case the value is interpreted as a time-out.
+    wait_render: -600
+    # [number=1280] Image width (aprox.)
+    width: 1280
+    # [number=0] Zoom steps. Use positive to enlarge, get closer, and negative to reduce.
+    # Same result as using the mouse wheel in the 3D viewer.
+    # Note that KiCad 8 starts with a zoom to fit, so you might not even need it
+    zoom: -2
+#
+# Fabricate
+#
+- name: 'gerber'
+  comment: 'Gerber fabrication bundle'
+  type: 'gerber'
+  dir: +/fabrication
+  options:
+    # [boolean=true] Creates a file with information about all the generated gerbers.
+    # You can use it in gerbview to load all gerbers at once
+    create_gerber_job_file: true
+    # [list(dict)=[]] A list of customized reports for the manufacturer
+    custom_reports:
+      # [string=''] Content for the report. Use ``${basename}`` for the project name without extension.
+      # Use ``${filename(LAYER)}`` for the file corresponding to LAYER
+      - content: ''
+        # [string='Custom_report.txt'] File name for the custom report
+        output: 'Custom_report.txt'
+    # [boolean=false] Disable aperture macros (workaround for buggy CAM software) (KiCad 6)
+    disable_aperture_macros: false
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [string=''] Used to configure the edge cuts layer extension for Protel mode. Include the dot
+    edge_cut_extension: ''
+    # [boolean=true] Do not include the PCB edge layer
+    exclude_edge_layer: true
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [boolean=false] Do not plot the component pads in the silk screen (KiCad 5.x only)
+    exclude_pads_from_silkscreen: false
+    # [boolean=false] Include references and values even when they are marked as invisible.
+    # Not available on KiCad 9.0.1 and newer
+    force_plot_invisible_refs_vals: false
+    # [string='%f-%i%I%v.%x'] Name for the gerber job file (%i='job', %x='gbrjob'). Affected by global options
+    gerber_job_file: '%f-%i%I%v.%x'
+    # [number=4.6] [4.5;4.6] This is the gerber coordinate format, can be 4.5 or 4.6
+    gerber_precision: 4.6
+    # [string=''] Used to change the Protel style extensions for inner layers.
+    # The replacement pattern can contain %n for the inner layer number and %N for the layer number.
+    # Example '.g%n'.
+    # Important: this numbering is consistent and the first inner layer is %n = 1 and %N = 2. Which
+    # isn't true for KiCad. KiCad 8 uses 2 for the first inner and KiCad 9 uses 1
+    inner_extension_pattern: ''
+    # [number=0.1] [0.02,2] Line_width for objects without width [mm] (KiCad 5)
+    line_width: 0.1
+    # [string='%f-%i%I%v.%x'] Output file name, the default KiCad name if empty.
+    # Important: KiCad will always create the file using its own name and then we can rename it.
+    # For this reason you must avoid generating two variants at the same directory when one of
+    # them uses the default KiCad name. Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [boolean=true] Include the footprint references
+    plot_footprint_refs: true
+    # [boolean=true] Include the footprint values
+    plot_footprint_values: true
+    # [boolean=false] Include the frame and title block. Only available for KiCad 6+ and you get a poor result
+    # (i.e. always the default worksheet style, also problems expanding text variables).
+    # The `pcb_print` output can do a better job for PDF, SVG, PS, EPS and PNG outputs
+    plot_sheet_reference: false
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [number=0.1] Line width for the sketched pads [mm], see `sketch_pads_on_fab_layers` (KiCad 6+)
+    # Note that this value is currently ignored by KiCad (6.0.9)
+    sketch_pad_line_width: 0.1
+    # [boolean=false] Draw only the outline of the pads on the *.Fab layers (KiCad 6+)
+    sketch_pads_on_fab_layers: false
+    # [boolean=false] Subtract the solder mask from the silk screen
+    subtract_mask_from_silk: false
+    # [boolean=true] Cover the vias. Usable for KiCad versions older than 9.
+    # Warning: KiCad 8 has a bug that ignores this option. Set it from KiCad GUI
+    tent_vias: true
+    # [boolean=false] Use uppercase names for the extensions
+    uppercase_extensions: false
+    # [boolean=false] Use the auxiliary axis as origin for coordinates
+    use_aux_axis_as_origin: false
+    # [boolean=true] Include netlist metadata
+    use_gerber_net_attributes: true
+    # [boolean=true] Use the extended X2 format (otherwise use X1 formerly RS-274X)
+    use_gerber_x2_attributes: true
+    # [boolean=false] Use legacy Protel file extensions.
+    # Important: Inner layers numbering is different for KiCad 8 and 9. KiCad 8 starts numbering inner
+    # layers with 2 and KiCad 9 with 1
+    use_protel_extensions: false
+    # [string=''] Board variant to apply
+    variant: ''
+  layers: all
+
+- name: 'excellon'
+  comment: 'Excellon drill files'
+  type: 'excellon'
+  dir: +/fabrication
+  options:
+    # [string|list(string)='_null'] Name of the filter to mark components as not fitted.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    dnf_filter: '_null'
+    # [string|list(string)='_null'] Name of the filter to exclude components from processing.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    exclude_filter: '_null'
+    # [boolean=true] Generate drill files. Set to False and choose map format if only map is to be generated
+    generate_drill_files: true
+    # [number=0] number of digits for integer part of coordinates (0 is auto)
+    left_digits: 0
+    # [dict|string='None'] [hpgl,ps,gerber,dxf,svg,pdf,None] Format for a graphical drill map.
+    # Not generated unless a format is specified
+    map:
+      # [string='%f-%i%I%v.%x'] Name for the map file, KiCad defaults if empty (%i='PTH_drill_map'). Affected by global options
+      output: '%f-%i%I%v.%x'
+      # [string='pdf'] [hpgl,ps,gerber,dxf,svg,pdf] Format for a graphical drill map
+      type: 'pdf'
+    # [boolean=true] Use metric units instead of inches
+    metric_units: true
+    # [boolean=false] Use a minimal header in the file
+    minimal_header: false
+    # [boolean=false] Invert the Y axis
+    mirror_y_axis: false
+    # [string] Force this replacement for %i when generating NPTH files
+    # npth_id: null
+    # [string='%f-%i%I%v.%x'] name for the drill file, KiCad defaults if empty (%i='PTH_drill'). Affected by global options
+    output: '%f-%i%I%v.%x'
+    # [string|list(string)='_null'] Name of the filter to transform fields before applying other filters.
+    # Is a short-cut to use for simple cases where a variant is an overkill.
+    # Can be used to fine-tune a variant for a particular output that needs extra filtering done before the
+    # variant
+    pre_transform: '_null'
+    # [boolean=true] Generate one file for both, plated holes and non-plated holes, instead of two separated files
+    pth_and_npth_single_file: true
+    # [string] Force this replacement for %i when generating PTH and unified files
+    # pth_id: null
+    # [dict|string=''] Name of the drill report. Not generated unless a name is specified
+    report:
+      # [string=''] Name of the drill report. Not generated unless a name is specified.
+      # (%i='drill_report' %x='txt')
+      filename: ''
+    # [number=0] number of digits for mantissa part of coordinates (0 is auto)
+    right_digits: 0
+    # [boolean=true] Use route command for oval holes (G00), otherwise use G85
+    route_mode_for_oval_holes: true
+    # [dict|string=''] Name of the drill table. Not generated unless a name is specified
+    table:
+      # [list(dict)|list(string)] List of columns to display.
+      # Each entry can be a dictionary with `field`, `name` or just a string (field name)
+      columns: ['Count', 'Hole Size', 'Plated', 'Hole Shape', 'Drill Layer Pair', 'Hole Type']
+      # [boolean=true] By default KiCad groups slots and rounded holes if they can be cut from the same tool (same diameter)
+      group_slots_and_round_holes: true
+      # [string='%f-%i%I%v.%x'] Name of the drill table. Not generated unless a name is specified.
+      # (%i='drill_table' %x='csv'). Affected by global options
+      output: '%f-%i%I%v.%x'
+      # [string='auto'] [yes,no,auto] Choose whether to unify plated and non-plated
+      # holes in the same table. If 'auto' is chosen, the setting is copied
+      # from the `excellon` output's `pth_and_npth_single_file`
+      unify_pth_and_npth: 'auto'
+      # [string='millimeters_mils'] [millimeters,mils,millimeters_mils,mils_millimeters] Units used for the hole sizes
+      units: 'millimeters_mils'
+    # [boolean=false] Use the auxiliary axis as origin for coordinates
+    use_aux_axis_as_origin: false
+    # [string=''] Board variant to apply.
+    # Used for sub-PCBs
+    variant: ''
+    # [string='DECIMAL_FORMAT'] [DECIMAL_FORMAT,SUPPRESS_LEADING,SUPPRESS_TRAILING,KEEP_ZEROS] How to handle the zeros
+    zeros_format: 'DECIMAL_FORMAT'
+
+#
+# Manufacture
+#
+- name: 'jlcpcb_position'
+  comment: 'JLC pick-and-place CSV'
+  type: position
+  dir: +/manufacture/jlcpcb
+  options:
+    pre_transform: _rot_footprint_jlcpcb
+    output: '%f.jlcpcb.cpl.%x'
+    format: CSV
+    units: millimeters
+    separate_files_for_front_and_back: false
+    only_smd: false
+    columns:
+      - id: Ref
+        name: Designator
+      - Val
+      - Package
+      - id: PosX
+        name: "Mid X"
+      - id: PosY
+        name: "Mid Y"
+      - id: Rot
+        name: Rotation
+      - id: Side
+        name: Layer
+
+- name: 'jlcpcb_bom'
+  comment: 'JLC BOM CSV'
+  type: bom
+  dir: +/manufacture/jlcpcb
+  options:
+    output: '%f.jlcpcb.bom.%x'
+    ref_separator: ','
+    columns:
+      - field: Value
+        name: Comment
+      - field: References
+        name: Designator
+      - Footprint
+      - field: 'JLCPCB PN'
+        name: 'LCSC Part #'
+    csv:
+      hide_pcb_info: true
+      hide_stats_info: true
+      quote_all: true
+      
+- name: 'jlcpcb_zip'
+  comment: 'JLC fabrication ZIP'
+  type: 'compress'
+  dir: +/manufacture/jlcpcb
+  options:
+    # [string='auto'] [auto,stored,deflated,bzip2,lzma] Compression algorithm. Use auto to let KiBot select a suitable one
+    compression: 'auto'
+    # [boolean=true] Also expand the `dest` file name (using % patterns)
+    expand_dest: true
+    # [list(dict)=[]] Which files will be included
+    files:
+      # [string=''] Destination directory inside the archive, empty means the same of the file
+      - dest: ''
+        # [string='.*'] A regular expression that source files must match
+        filter: '.*'
+        # [boolean=false] Use the current working directory instead of the dir specified by `-d`
+        # from_cwd: false
+        # [string=''] Collect files from the selected output.
+        # When used the `source` option is ignored
+        from_output: 'gerber'
+        # [boolean=false] Use the current directory specified by the output instead of the dir specified by `-d`.
+        # Note that it only applies when using `from_output` and no `dest` is specified.
+        # It has more prescedence than `from_cwd`
+        from_output_dir: true
+        # [string='*'] File names to add, wildcards allowed. Use ** for recursive match.
+        # By default this pattern is applied to the output dir specified with `-d` command line option.
+        # See the `from_cwd` and `from_output_dir` options
+        source: fabricate/*
+      - from_output: 'excellon'
+        from_output_dir: true
+        source: fabricate/*
+    # [boolean=true] Store the file pointed by symlinks, not the symlink
+    follow_links: true
+    # [string='ZIP'] [ZIP,TAR,RAR] Output file format
+    format: 'ZIP'
+    # [boolean=false] Move the files to the archive. In other words: remove the files after adding them to the archive
+    move_files: false
+    # [string='%f-%i%I%v.%x'] Name for the generated archive (%i=name of the output %x=according to format). Affected by global options
+    output: '%f.jlcpcb.%x'
+    # `remove_files` is an alias for `move_files`
+    # [boolean=false] Skip outputs with `run_by_default: false`
+    skip_not_run: false
