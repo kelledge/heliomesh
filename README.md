@@ -7,7 +7,7 @@ Meshtastic nodes.
 
 As fun as it is to solder up a solution, these often end up being the weak point of any solution.
 This project aims to provide fully integrated solutions that any one can order and pairs nicely
-with the existing wide range of Meshtastic devices and enclosures.
+with the existing range of Meshtastic devices and enclosures.
 
 ## Contibuting
 TODO
