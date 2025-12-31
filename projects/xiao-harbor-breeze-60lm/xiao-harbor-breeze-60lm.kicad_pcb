@@ -11136,7 +11136,7 @@
 		(path "/ec69c657-9ea5-4a45-abff-94e1b8a79399")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -11245,7 +11245,7 @@
 		(path "/05a88f4c-878c-40fb-8d17-b940dd4c718d")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -11354,7 +11354,7 @@
 		(path "/00c563a0-481d-45bd-b21e-2c5d3d68cee3")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -11463,7 +11463,7 @@
 		(path "/e9224495-5110-4ebb-ac9f-f4e1c8f7d7da")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -11572,7 +11572,7 @@
 		(path "/3c6e317e-c061-4048-b0c8-7c39f22823fc")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -11681,7 +11681,7 @@
 		(path "/652420c2-bfcf-480d-b16a-2cfd7a48cb15")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_bom)
 		(fp_poly
 			(pts
 				(xy 0.985562 -0.657596) (xy 0.985561 -0.657463) (xy 0.985562 -0.657463)
@@ -12938,7 +12938,7 @@
 		(path "/a2cf07ec-8e18-4f0f-970e-c8e7359c2a81")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -13047,7 +13047,7 @@
 		(path "/c1716156-0704-4eeb-919a-451c7c75e1d4")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -13156,7 +13156,7 @@
 		(path "/e05cf0f7-a3ca-43eb-bb06-00ef8073d04c")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
@@ -13265,7 +13265,7 @@
 		(path "/e21ee5c2-9442-45dd-9c4c-0f76ecfde925")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_bom)
 		(fp_poly
 			(pts
 				(xy 5.328244 10.140788) (xy 2.420524 5.974709) (xy 1.845308 6.376208) (xy 4.753028 10.542238)
@@ -13554,7 +13554,7 @@
 		(path "/526ed2da-ec3c-455e-bada-93a83b116cde")
 		(sheetname "/")
 		(sheetfile "xiao-harbor-breeze-60lm.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 -0.95)
