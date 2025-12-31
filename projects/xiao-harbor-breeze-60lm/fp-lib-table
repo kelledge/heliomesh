@@ -5,6 +5,7 @@
   (lib (name "MountingHole")(type "KiCad")(uri "${KICAD9_FOOTPRINT_DIR}/MountingHole.pretty")(options "")(descr ""))
   (lib (name "TestPoint")(type "KiCad")(uri "${KICAD9_FOOTPRINT_DIR}/TestPoint.pretty")(options "")(descr ""))
   (lib (name "LED_SMD")(type "KiCad")(uri "${KICAD9_FOOTPRINT_DIR}/LED_SMD.pretty")(options "")(descr ""))
+  (lib (name "Jumper")(type "KiCad")(uri "${KICAD9_FOOTPRINT_DIR}/Jumper.pretty")(options "")(descr ""))
   (lib (name "easyeda2kicad")(type "KiCad")(uri "${KIPRJMOD}/../../lib/upstream/easyeda2kicad/easyeda2kicad.pretty")(options "")(descr ""))
   (lib (name "heliomesh")(type "KiCad")(uri "${KIPRJMOD}/../../lib/footprints/heliomesh.pretty")(options "")(descr ""))
 )

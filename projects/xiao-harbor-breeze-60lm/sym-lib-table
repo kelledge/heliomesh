@@ -4,6 +4,7 @@
   (lib (name "power")(type "KiCad")(uri "${KICAD9_SYMBOL_DIR}/power.kicad_sym")(options "")(descr "Power symbols, special power flags"))
   (lib (name "Mechanical")(type "KiCad")(uri "${KICAD9_SYMBOL_DIR}/Mechanical.kicad_sym")(options "")(descr "Mechanical symbols"))
   (lib (name "Connector")(type "KiCad")(uri "${KICAD9_SYMBOL_DIR}/Connector.kicad_sym")(options "")(descr ""))
+  (lib (name "Jumper")(type "KiCad")(uri "${KICAD9_SYMBOL_DIR}/Jumper.kicad_sym")(options "")(descr ""))
   (lib (name "easyeda2kicad")(type "KiCad")(uri "${KIPRJMOD}/../../lib/upstream/easyeda2kicad/easyeda2kicad.kicad_sym")(options "")(descr ""))
   (lib (name "heliomesh")(type "KiCad")(uri "${KIPRJMOD}/../../lib/symbols/heliomesh.kicad_sym")(options "")(descr ""))
 )

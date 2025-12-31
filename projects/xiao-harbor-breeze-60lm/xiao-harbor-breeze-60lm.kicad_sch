@@ -868,6 +868,203 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:SolderJumper_2_Bridged"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SolderJumper_2_Bridged"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Solder Jumper, 2-pole, closed/bridged"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "solder jumper SPST"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SolderJumper*Bridged*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SolderJumper_2_Bridged_0_1"
+				(rectangle
+					(start -0.508 0.508)
+					(end 0.508 -0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.254 1.016) (xy -0.254 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -0.254 -1.016)
+					(mid -1.2656 0)
+					(end -0.254 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -0.254 -1.016)
+					(mid -1.2656 0)
+					(end -0.254 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start 0.254 1.016)
+					(mid 1.2656 0)
+					(end 0.254 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0.254 1.016)
+					(mid 1.2656 0)
+					(end 0.254 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 1.016) (xy 0.254 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SolderJumper_2_Bridged_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Mechanical:MountingHole_Pad"
 			(pin_numbers
 				(hide yes)
@@ -3427,6 +3624,16 @@
 	)
 	(wire
 		(pts
+			(xy 179.07 67.31) (xy 179.07 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d399beb-8886-4855-9014-3ed910c5f530")
+	)
+	(wire
+		(pts
 			(xy 189.23 46.99) (xy 189.23 49.53)
 		)
 		(stroke
@@ -3647,6 +3854,16 @@
 	)
 	(wire
 		(pts
+			(xy 199.39 67.31) (xy 199.39 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d16ca7f-ad1f-489f-bc33-b14e05663299")
+	)
+	(wire
+		(pts
 			(xy 129.54 25.4) (xy 129.54 29.21)
 		)
 		(stroke
@@ -3764,6 +3981,16 @@
 			(type default)
 		)
 		(uuid "728d3007-377e-4c82-99e7-015ccd4a0741")
+	)
+	(wire
+		(pts
+			(xy 189.23 67.31) (xy 189.23 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "755e878d-a89d-4156-a3d2-15b6277068ec")
 	)
 	(wire
 		(pts
@@ -4227,7 +4454,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 67.31) (xy 179.07 72.39)
+			(xy 179.07 77.47) (xy 179.07 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4277,7 +4504,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 67.31) (xy 199.39 72.39)
+			(xy 199.39 77.47) (xy 199.39 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4297,7 +4524,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 67.31) (xy 189.23 72.39)
+			(xy 189.23 77.47) (xy 189.23 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4486,7 +4713,7 @@
 		(uuid "07f1da3c-2ea4-4458-8cd4-ed91b67dd1cd")
 	)
 	(label "STAT1"
-		(at 179.07 72.39 0)
+		(at 179.07 82.55 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4606,7 +4833,7 @@
 		(uuid "ad2275b0-5e82-461d-88d0-31494b4f846f")
 	)
 	(label "STAT2"
-		(at 189.23 72.39 0)
+		(at 189.23 82.55 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7284,16 +7511,15 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 179.07 63.5 90)
+		(at 179.07 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "4ef0f04f-159c-42c2-a966-a8c22d78db0f")
 		(property "Reference" "D1"
-			(at 182.88 63.8174 90)
+			(at 182.88 73.9774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7302,7 +7528,7 @@
 			)
 		)
 		(property "Value" "FAULT"
-			(at 182.88 66.3574 90)
+			(at 182.88 79.0574 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7311,7 +7537,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 179.07 63.5 0)
+			(at 179.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7320,7 +7546,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 179.07 63.5 0)
+			(at 179.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7329,7 +7555,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 179.07 63.5 0)
+			(at 179.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7338,7 +7564,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 179.07 63.5 0)
+			(at 179.07 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7347,7 +7573,7 @@
 			)
 		)
 		(property "JLCPCB PN" "C965799"
-			(at 179.07 63.5 90)
+			(at 179.07 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9376,7 +9602,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 189.23 63.5 90)
+		(at 189.23 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9385,7 +9611,7 @@
 		(fields_autoplaced yes)
 		(uuid "7e5e0daa-80c9-45b2-bcdf-b34153178aa3")
 		(property "Reference" "D2"
-			(at 193.04 63.8174 90)
+			(at 193.04 73.9774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9394,7 +9620,7 @@
 			)
 		)
 		(property "Value" "CHARG"
-			(at 193.04 66.3574 90)
+			(at 193.04 76.5174 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9403,7 +9629,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 189.23 63.5 0)
+			(at 189.23 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9412,7 +9638,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 189.23 63.5 0)
+			(at 189.23 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9421,7 +9647,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 189.23 63.5 0)
+			(at 189.23 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9430,7 +9656,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 189.23 63.5 0)
+			(at 189.23 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9439,7 +9665,7 @@
 			)
 		)
 		(property "JLCPCB PN" "C965799"
-			(at 189.23 63.5 90)
+			(at 189.23 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9530,7 +9756,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 199.39 72.39 0)
+		(at 199.39 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9539,7 +9765,7 @@
 		(fields_autoplaced yes)
 		(uuid "879bcd93-74b8-43da-b86b-dcc195025009")
 		(property "Reference" "#PWR042"
-			(at 199.39 78.74 0)
+			(at 199.39 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9548,7 +9774,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 199.39 77.47 0)
+			(at 199.39 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9556,7 +9782,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 199.39 72.39 0)
+			(at 199.39 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9565,7 +9791,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 72.39 0)
+			(at 199.39 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9574,7 +9800,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 199.39 72.39 0)
+			(at 199.39 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9796,6 +10022,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Jumper:SolderJumper_2_Bridged")
+		(at 199.39 63.5 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "974eff81-fb2a-42b7-9f8d-a07835cfeda9")
+		(property "Reference" "JP3"
+			(at 201.422 63.754 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "SolderJumper_2_Bridged"
+			(at 201.93 64.7699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm"
+			(at 199.39 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 199.39 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
+			(at 199.39 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a346b59b-a54b-49dc-9533-e0d225554fcb")
+		)
+		(pin "2"
+			(uuid "65a79ab2-5452-42a0-a63f-5c49eeba4ce6")
+		)
+		(instances
+			(project "xiao-harbor-breeze-60lm"
+				(path "/6ec7f8c9-7bf0-47f4-bde9-3b512293140e"
+					(reference "JP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 229.87 149.86 180)
 		(unit 1)
@@ -9990,6 +10286,76 @@
 			(project "xiao-harbor-breeze-60lm"
 				(path "/6ec7f8c9-7bf0-47f4-bde9-3b512293140e"
 					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:SolderJumper_2_Bridged")
+		(at 189.23 63.5 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "a88a6606-235e-41dc-a8e1-edcb3f45cc75")
+		(property "Reference" "JP2"
+			(at 191.262 63.754 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "SolderJumper_2_Bridged"
+			(at 191.77 64.7699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm"
+			(at 189.23 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 189.23 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
+			(at 189.23 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ef51f6ec-8845-484e-ad80-aa4ae99b44b8")
+		)
+		(pin "2"
+			(uuid "67e60f4b-eb3c-4cf8-b209-db818fa8f215")
+		)
+		(instances
+			(project "xiao-harbor-breeze-60lm"
+				(path "/6ec7f8c9-7bf0-47f4-bde9-3b512293140e"
+					(reference "JP2")
 					(unit 1)
 				)
 			)
@@ -10202,7 +10568,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 199.39 63.5 90)
+		(at 199.39 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10211,7 +10577,7 @@
 		(fields_autoplaced yes)
 		(uuid "b1b70899-3157-437a-ac05-9d2c58d3d8f6")
 		(property "Reference" "D3"
-			(at 203.2 63.8174 90)
+			(at 203.2 73.9774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10220,7 +10586,7 @@
 			)
 		)
 		(property "Value" "3V3"
-			(at 203.2 66.3574 90)
+			(at 203.2 76.5174 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10229,7 +10595,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
-			(at 199.39 63.5 0)
+			(at 199.39 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10238,7 +10604,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 199.39 63.5 0)
+			(at 199.39 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10247,7 +10613,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 199.39 63.5 0)
+			(at 199.39 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10256,7 +10622,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 199.39 63.5 0)
+			(at 199.39 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10265,7 +10631,7 @@
 			)
 		)
 		(property "JLCPCB PN" "C965799"
-			(at 199.39 63.5 90)
+			(at 199.39 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12238,6 +12604,76 @@
 			(project "xiao-harbor-breeze-60lm"
 				(path "/6ec7f8c9-7bf0-47f4-bde9-3b512293140e"
 					(reference "#PWR043")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:SolderJumper_2_Bridged")
+		(at 179.07 63.5 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "eaffbafa-92c3-46e5-bf77-caed9b7e0c75")
+		(property "Reference" "JP1"
+			(at 181.102 63.754 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "SolderJumper_2_Bridged"
+			(at 181.61 64.7699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm"
+			(at 179.07 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 179.07 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
+			(at 179.07 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "680774b7-1e73-4bee-bda3-14f3342fdf8a")
+		)
+		(pin "2"
+			(uuid "cca726f2-6b43-4eb2-a672-d229a24ca9bf")
+		)
+		(instances
+			(project ""
+				(path "/6ec7f8c9-7bf0-47f4-bde9-3b512293140e"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
