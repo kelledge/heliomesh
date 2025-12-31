@@ -5433,7 +5433,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB PN" "C23025"
+		(property "JLCPCB PN" "C21190"
 			(at 234.95 144.78 0)
 			(effects
 				(font
@@ -6555,7 +6555,7 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB PN" "C23025"
+		(property "JLCPCB PN" "C22775"
 			(at 273.05 135.89 0)
 			(effects
 				(font
@@ -7525,6 +7525,15 @@
 		)
 		(property "LCSC Part" "C351410"
 			(at 254 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB PN" "C351410"
+			(at 254 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8521,6 +8530,15 @@
 		)
 		(property "LCSC Part" "C351449"
 			(at 205.74 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB PN" "C351449"
+			(at 205.74 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
