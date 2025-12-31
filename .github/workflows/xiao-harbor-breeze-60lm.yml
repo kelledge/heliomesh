@@ -1,7 +1,7 @@
 name: xiao-harbor-breeze-60lm
 
 permissions:
-  contents: read
+  contents: write
   checks: write
   statuses: write
 
@@ -11,6 +11,8 @@ on:
       - main
     paths:
       - 'projects/xiao-harbor-breeze-60lm/**'
+    tags:
+      - 'xiao-harbor-breeze-60lm/v*'
   pull_request:
     branches:
       - main
@@ -68,3 +70,31 @@ jobs:
         with:
           name: xiao-harbor-breeze-60lm-jlcpcb
           path: build/xiao-harbor-breeze-60lm/manufacture/jlcpcb/**
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/xiao-harbor-breeze-60lm/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+
+      - name: Zip Artifacts for Release
+        run: |
+          cd release-artifacts
+          for dir in */; do
+            zip -r "${dir%/}.zip" "$dir"
+          done
+
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+          prerelease: ${{ endsWith(github.ref_name, '-rc') }}
+          files: release-artifacts/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
