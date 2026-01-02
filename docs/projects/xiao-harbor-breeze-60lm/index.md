@@ -6,8 +6,7 @@
 ## Documentation
 
 ### 3D Model
-<!-- Use it like any other HTML element -->
-<model-viewer alt="" src="../../assets/projects/xiao-harbor-breeze-60lm/xiao-harbor-breeze-60lm-3D.glb" shadow-intensity="1" camera-controls touch-action="pan-y" style="display:block; height:auto; width:100%; max-width:100%; aspect-ratio:16/9;"></model-viewer>
+<model-viewer alt="" src="../../assets/projects/xiao-harbor-breeze-60lm/xiao-harbor-breeze-60lm-3D.glb" shadow-intensity="0" camera-controls touch-action="pan-y" exposure="0.5" style="display:block; height:auto; width:100%; max-width:100%; aspect-ratio:16/9;"></model-viewer>
 
 ### Schematic
 <kicanvas-embed src="../../assets/projects/xiao-harbor-breeze-60lm/xiao-harbor-breeze-60lm.kicad_sch" controls="full"></kicanvas-embed>

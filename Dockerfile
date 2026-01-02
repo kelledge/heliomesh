@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS dev
+FROM ubuntu:25.10 AS dev
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -25,10 +25,10 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt/lists \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        kicad=9.0.6* \
-        kicad-symbols=9.0.6* \
-        kicad-footprints=9.0.6* \
-        kicad-templates=7.0.9* \
+        kicad \
+        kicad-symbols \
+        kicad-footprints \
+        kicad-templates \
         python3 \
         python3-pip \
         python3-venv \
@@ -53,10 +53,10 @@ RUN python3 -m venv /opt/venv --system-site-packages
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH=/workspace/scripts:/opt/venv/bin:$PATH
 
-# Install kibot and easyeda2kicad using the venv pip on the PATH.
+# TODO: Pin versions and/or add to requirements.txt. UV appears to be the fresh new hotness.
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip \
-    && pip install --no-compile kibot easyeda2kicad \
+    && pip install --no-compile kibot easyeda2kicad pygltflib \
        kicost kikit junit-xml \
        mkdocs mkdocs-material
 

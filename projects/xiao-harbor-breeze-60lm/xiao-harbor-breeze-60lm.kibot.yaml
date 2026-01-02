@@ -380,7 +380,7 @@ outputs:
     # [boolean=false] Export tracks and vias
     include_tracks: true
     # [boolean=false] Export zones
-    include_zones: false
+    include_zones: true
     # [string='https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'] Base URL for the KiCad 3D models
     kicad_3d_url: 'https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/master/'
     # [string=''] Text added to the end of the download URL.
@@ -414,7 +414,7 @@ outputs:
     # variant
     pre_transform: '_null'
     # [boolean=true] Substitute STEP or IGS models with the same name in place of VRML models
-    subst_models: true
+    subst_models: false
     # [string='millimeters'] [millimeters,inches,mils] Units used for the custom origin and `min_distance`. Affected by global options
     units: 'millimeters'
     # [string=''] Board variant to apply

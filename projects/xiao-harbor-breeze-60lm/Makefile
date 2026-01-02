@@ -6,7 +6,9 @@ PROJECT_BUILD_DIR ?= $(HELIOMESH_BUILD_DIR)/$(PROJECT_NAME)
 build:
 	kibot -L $(PROJECT_BUILD_DIR)/kibot.log -c xiao-harbor-breeze-60lm.kibot.yaml
 	find $(PROJECT_BUILD_DIR) -type f -path "*/reports/*.json" | xargs -n 1 kicad2junit --input
+	find $(PROJECT_BUILD_DIR) -type f -path "*.glb" | xargs -n 1 xargs -n 1 fix_glb_silkscreens.py --inplace
 
 .PHONY: clean
 clean:
 	rm -rf $(PROJECT_BUILD_DIR)
+

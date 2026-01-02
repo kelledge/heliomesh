@@ -1,5 +1,6 @@
 build/
 site/
+\#auto_saved_files\#
 *_backups/
 *-backups/
 *.bak
