@@ -11,15 +11,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'projects/xiao-harbor-breeze-60lm/**'
     tags:
       - 'xiao-harbor-breeze-60lm/v*'
   pull_request:
     branches:
       - main
-    paths:
-      - 'projects/xiao-harbor-breeze-60lm/**'
 
 jobs:
   build:

@@ -1,7 +1,7 @@
 # Heliomesh
 
 ![Build passing](https://github.com/kelledge/heliomesh/actions/workflows/xiao-harbor-breeze-60lm.yml/badge.svg)
-[![Website](img.shields.io)](https://kelledge.github.io/heliomesh/)
+[![Documentation](img.shields.io)](https://kelledge.github.io/heliomesh/)
 
 Heliomesh is a growing collection of PCB designs that enable anyone to build robust solar-power
 Meshtastic nodes.
