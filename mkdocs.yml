@@ -1,0 +1,24 @@
+site_name: Heliomesh
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    # Default (first) = dark
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+    # Alternate = light
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+
+hooks:
+  - scripts/mkdocs_hooks.py
+
+watch:
+  - docs
+  - build

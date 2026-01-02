@@ -1,4 +1,5 @@
 build/
+site/
 *_backups/
 *-backups/
 *.bak
@@ -6,3 +7,4 @@ build/
 fp-info-cache
 ~*.lck
 *.kicad_prl
+__pycache__/

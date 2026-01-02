@@ -4,6 +4,8 @@ permissions:
   contents: write
   checks: write
   statuses: write
+  pages: write
+  id-token: write
 
 on:
   push:
@@ -47,6 +49,9 @@ jobs:
       - name: Build Project Assets
         run: docker compose run --rm dev make -C projects/xiao-harbor-breeze-60lm clean build
 
+      - name: Build MkDocs site
+        run: docker compose run --rm dev mkdocs build # TODO: extract step to project-local automation
+
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v5
         if: always()
@@ -70,6 +75,24 @@ jobs:
         with:
           name: xiao-harbor-breeze-60lm-jlcpcb
           path: build/xiao-harbor-breeze-60lm/manufacture/jlcpcb/**
+
+      - name: Upload GitHub Pages artifact
+        id: gh_pages_artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy_pages:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.gh_pages_artifact.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: gh_pages_artifact
+        uses: actions/deploy-pages@v4
 
   release:
     needs: build

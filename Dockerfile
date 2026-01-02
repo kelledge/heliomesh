@@ -57,7 +57,8 @@ ENV PATH=/workspace/scripts:/opt/venv/bin:$PATH
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip \
     && pip install --no-compile kibot easyeda2kicad \
-       kicost kikit junit-xml
+       kicost kikit junit-xml \
+       mkdocs mkdocs-material
 
 RUN curl -L -o /tmp/ibom.deb https://github.com/INTI-CMNB/InteractiveHtmlBom/releases/download/v2.10.0-2/interactivehtmlbom.inti-cmnb_2.10.0-2_all.deb && \
     dpkg -i /tmp/ibom.deb
